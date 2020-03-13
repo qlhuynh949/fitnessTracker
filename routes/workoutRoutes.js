@@ -6,10 +6,22 @@ router.get('/workouts', (req, res) => Workout.find()
   .catch(e => console.error(e)))
 
 
+router.get('/excercise/:id', (req, res) => Workout.findById(req.params.id)
+  .populate('excercise')
+  .then(Workout => res.json(Workout))
+  .catch(e => console.error(e)))
+
+
 router.get('/workouts/:id', (req, res) => Workout.findById(req.params.id)
   .populate('excercise')
   .then(Workout => res.json(Workout))
   .catch(e => console.error(e)))
+
+router.get('/workouts/range', (req, res) => Workout.find()
+  .populate('excercise')
+  .then(Workout => res.json(Workout))
+  .catch(e => console.error(e)))
+
 
 router.post('/workouts', (req, res) => Workout.create(req.body)
   .then(() => res.sendStatus(200))

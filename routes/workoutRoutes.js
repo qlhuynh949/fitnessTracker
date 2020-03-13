@@ -2,23 +2,31 @@ const router = require('express').Router()
 const { Workout } = require('../models')
 
 router.get('/workouts', (req, res) => Workout.find()
-  .then(items => res.json(items))
+  .then(Workout => res.json(Workout))
   .catch(e => console.error(e)))
 
 
 router.get('/excercise/:id', (req, res) => Workout.findById(req.params.id)
-  .populate('excercise')
+  .populate('excercises')
   .then(Workout => res.json(Workout))
   .catch(e => console.error(e)))
 
 
 router.get('/workouts/:id', (req, res) => Workout.findById(req.params.id)
-  .populate('excercise')
+  .populate('excercises')
   .then(Workout => res.json(Workout))
   .catch(e => console.error(e)))
 
+
+// PUT one workouts
+router.put('/workouts/:id', (req, res) => Workout.findByIdAndUpdate(req.params.id, req.body)
+  .then(() => res.sendStatus(200))
+  .catch(e => console.error(e)))
+
+
+
 router.get('/workouts/range', (req, res) => Workout.find()
-  .populate('excercise')
+  .populate('excercises')
   .then(Workout => res.json(Workout))
   .catch(e => console.error(e)))
 

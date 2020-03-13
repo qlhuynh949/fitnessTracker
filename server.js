@@ -23,7 +23,6 @@ app.get('/stats', (req, res) => {
   res.sendFile(path.join(__dirname, './public/stats.html'))
 
 })
-
 require('./config')
   .then(() => app.listen(process.env.PORT || 3000))
   .catch(e => console.error(e))

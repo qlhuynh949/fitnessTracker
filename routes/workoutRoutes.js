@@ -12,10 +12,22 @@ router.get('/excercise/:id', (req, res) => Workout.findById(req.params.id)
   .catch(e => console.error(e)))
 
 
-router.get('/workouts/:id', (req, res) => Workout.findById(req.params.id)
-  .populate('excercises')
-  .then(Workout => res.json(Workout))
-  .catch(e => console.error(e)))
+router.get('/workouts/:id', (req, res) => {
+  if (req.params.id.toLowerCase() !== 'range') {
+    Workout.findById(req.params.id)
+      .then(Workout => res.json(Workout))
+      .catch(e => console.error(e))
+
+
+  }
+  else {
+    Workout.find()
+      .then(Workout => res.json(Workout))
+      .catch(e => console.error(e))
+
+  }
+
+})
 
 
 // PUT one workouts
@@ -23,12 +35,6 @@ router.put('/workouts/:id', (req, res) => Workout.findByIdAndUpdate(req.params.i
   .then(() => res.sendStatus(200))
   .catch(e => console.error(e)))
 
-
-
-router.get('/workouts/range', (req, res) => Workout.find()
-  .populate('excercises')
-  .then(Workout => res.json(Workout))
-  .catch(e => console.error(e)))
 
 
 router.post('/workouts', (req, res) => Workout.create(req.body)

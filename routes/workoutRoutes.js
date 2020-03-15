@@ -44,7 +44,7 @@ router.put('/workouts/:id', (req, res) => {
 
 
 router.post('/workouts', (req, res) => Workout.create(req.body)
-  .then(() => res.sendStatus(200))
+  .then((workout) => res.json(workout))
   .catch(e => console.error(e)))
 
 module.exports = router

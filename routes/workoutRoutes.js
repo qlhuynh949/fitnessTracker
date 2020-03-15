@@ -6,10 +6,7 @@ router.get('/workouts', (req, res) => Workout.find()
   .catch(e => console.error(e)))
 
 
-router.get('/excercise/:id', (req, res) => Workout.findById(req.params.id)
-  .populate('excercises')
-  .then(Workout => res.json(Workout))
-  .catch(e => console.error(e)))
+
 
 
 router.get('/workouts/:id', (req, res) => {

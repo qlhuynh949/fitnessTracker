@@ -6,10 +6,7 @@ router.get('/workouts', (req, res) => Workout.find()
   .catch(e => console.error(e)))
 
 
-router.get('/excercise/:id', (req, res) => Workout.findById(req.params.id)
-  .populate('excercises')
-  .then(Workout => res.json(Workout))
-  .catch(e => console.error(e)))
+
 
 
 router.get('/workouts/:id', (req, res) => {
@@ -31,9 +28,18 @@ router.get('/workouts/:id', (req, res) => {
 
 
 // PUT one workouts
-router.put('/workouts/:id', (req, res) => Workout.findByIdAndUpdate(req.params.id, req.body)
-  .then(() => res.sendStatus(200))
-  .catch(e => console.error(e)))
+router.put('/workouts/:id', (req, res) => {
+  Workout.findById(
+    req.params.id
+  )
+    .then((workout) => {
+      workout.exercises.push(req.body)
+      workout.save()
+      res.json(workout)
+
+    })
+    .catch(e => console.error(e))
+})
 
 
 
